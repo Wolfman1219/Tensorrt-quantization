@@ -60,7 +60,7 @@ python3 export-det.py \
 You will get an onnx model whose prefix is the same as input weights.
 
 # Build End2End Engine from ONNX
-### 1. Build Engine by TensorRT ONNX Python api
+### Build Engine by TensorRT ONNX Python api
 
 You can export TensorRT engine from ONNX by [`build.py` ](build.py).
 
