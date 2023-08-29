@@ -1,18 +1,6 @@
-# YOLOv8-TensorRT
+# YOLOv8-TensorRT and Quantization
 
 `YOLOv8` using TensorRT accelerate !
-
----
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fatrox%2Fsync-dotenv%2Fbadge&style=flat)](https://github.com/triple-Mu/YOLOv8-TensorRT)
-[![Python Version](https://img.shields.io/badge/Python-3.8--3.10-FFD43B?logo=python)](https://github.com/triple-Mu/YOLOv8-TensorRT)
-[![img](https://badgen.net/badge/icon/tensorrt?icon=azurepipelines&label)](https://developer.nvidia.com/tensorrt)
-[![C++](https://img.shields.io/badge/CPP-11%2F14-yellow)](https://github.com/triple-Mu/YOLOv8-TensorRT)
-[![img](https://badgen.net/github/license/triple-Mu/YOLOv8-TensorRT)](https://github.com/triple-Mu/YOLOv8-TensorRT/blob/main/LICENSE)
-[![img](https://badgen.net/github/prs/triple-Mu/YOLOv8-TensorRT)](https://github.com/triple-Mu/YOLOv8-TensorRT/pulls)
-[![img](https://img.shields.io/github/stars/triple-Mu/YOLOv8-TensorRT?color=ccf)](https://github.com/triple-Mu/YOLOv8-TensorRT)
-
----
-
 
 # Prepare the environment
 
@@ -30,13 +18,7 @@
    pip install -r requirements.txt
    ```
 
-3. Install [`ultralytics`](https://github.com/ultralytics/ultralytics) package for ONNX export or TensorRT API building.
-
-   ``` shell
-   pip install ultralytics
-   ```
-
-5. Prepare your own PyTorch weight such as `yolov8s.pt` or `yolov8s-seg.pt`.
+3. Prepare your own PyTorch weight such as `yolov8s.pt` or `yolov8s-seg.pt`.
 
 ***NOTICE:***
 
@@ -47,12 +29,6 @@ If you have to use a lower version of `CUDA` and `TensorRT`, please read the rel
 # Normal Usage
 
 If you get ONNX from origin [`ultralytics`](https://github.com/ultralytics/ultralytics) repo, you should build engine by yourself.
-
-You can only use the `c++` inference code to deserialize the engine and do inference.
-
-You can get more information in [`Normal.md`](docs/Normal.md) !
-
-Besides, other scripts won't work.
 
 # Export End2End ONNX with NMS
 
@@ -83,25 +59,12 @@ python3 export-det.py \
 
 You will get an onnx model whose prefix is the same as input weights.
 
-###  Just Taste First
-
-If you just want to taste first, you can download the onnx model which are exported by `YOLOv8` package and modified by me.
-
-[**YOLOv8-n**](https://triplemu.oss-cn-beijing.aliyuncs.com/YOLOv8/ONNX/yolov8n_nms.onnx?OSSAccessKeyId=LTAI5tN1dgmZD4PF8AJUXp3J&Expires=1772936700&Signature=r6HgJTTcCSAxQxD9bKO9qBTtigQ%3D)
-
-[**YOLOv8-s**](https://triplemu.oss-cn-beijing.aliyuncs.com/YOLOv8/ONNX/yolov8s_nms.onnx?OSSAccessKeyId=LTAI5tN1dgmZD4PF8AJUXp3J&Expires=1682936722&Signature=JjxQFx1YElcVdsCaMoj81KJ4a5s%3D)
-
-[**YOLOv8-m**](https://triplemu.oss-cn-beijing.aliyuncs.com/YOLOv8/ONNX/yolov8m_nms.onnx?OSSAccessKeyId=LTAI5tN1dgmZD4PF8AJUXp3J&Expires=1682936739&Signature=IRKBELdVFemD7diixxxgzMYqsWg%3D)
-
-[**YOLOv8-l**](https://triplemu.oss-cn-beijing.aliyuncs.com/YOLOv8/ONNX/yolov8l_nms.onnx?OSSAccessKeyId=LTAI5tN1dgmZD4PF8AJUXp3J&Expires=1682936763&Signature=RGkJ4G2XJ4J%2BNiki5cJi3oBkDnA%3D)
-
-[**YOLOv8-x**](https://triplemu.oss-cn-beijing.aliyuncs.com/YOLOv8/ONNX/yolov8x_nms.onnx?OSSAccessKeyId=LTAI5tN1dgmZD4PF8AJUXp3J&Expires=1673936778&Signature=3o%2F7QKhiZg1dW3I6sDrY4ug6MQU%3D)
-
 # Build End2End Engine from ONNX
 ### 1. Build Engine by TensorRT ONNX Python api
 
 You can export TensorRT engine from ONNX by [`build.py` ](build.py).
 
+## If you want quantize your model just add argument `fp16`.
 Usage:
 
 ``` shell
