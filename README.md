@@ -88,29 +88,6 @@ python3 build.py \
 
 You can modify `iou-thres` `conf-thres` `topk` by yourself.
 
-### 2. Export Engine by Trtexec Tools
-
-You can export TensorRT engine by [`trtexec`](https://github.com/NVIDIA/TensorRT/tree/main/samples/trtexec) tools.
-
-Usage:
-
-``` shell
-/usr/src/tensorrt/bin/trtexec \
---onnx=yolov8s.onnx \
---saveEngine=yolov8s.engine \
---fp16
-```
-
-**If you installed TensorRT by a debian package, then the installation path of `trtexec`
-is `/usr/src/tensorrt/bin/trtexec`**
-
-**If you installed TensorRT by a tar package, then the installation path of `trtexec` is under the `bin` folder in the path you decompressed**
-
-# Build TensorRT Engine by TensorRT API
-
-Please see more information in [`API-Build.md`](docs/API-Build.md)
-
-***Notice !!!*** We don't support YOLOv8-seg model now !!!
 
 # Inference
 
@@ -166,64 +143,3 @@ Usage:
 # infer video
 ./yolov8 yolov8s.engine data/test.mp4 # the video path
 ```
-
-# TensorRT Segment Deploy
-
-Please see more information in [`Segment.md`](docs/Segment.md)
-
-# TensorRT Pose Deploy
-
-Please see more information in [`Pose.md`](docs/Pose.md)
-
-# DeepStream Detection Deploy
-
-See more in [`README.md`](csrc/deepstream/README.md)
-
-# Jetson Deploy
-
-Only test on `Jetson-NX 4GB`.
-See more in [`Jetson.md`](docs/Jetson.md)
-
-# Profile you engine
-
-If you want to profile the TensorRT engine:
-
-Usage:
-
-``` shell
-python3 trt-profile.py --engine yolov8s.engine --device cuda:0
-```
-
-# Refuse To Use PyTorch for Model Inference !!!
-
-If you need to break away from pytorch and use tensorrt inference,
-you can get more information in [`infer-det-without-torch.py`](infer-det-without-torch.py),
-the usage is the same as the pytorch version, but its performance is much worse.
-
-You can use `cuda-python` or `pycuda` for inference.
-Please install by such command:
-
-```shell
-pip install cuda-python
-# or
-pip install pycuda
-```
-
-Usage:
-
-``` shell
-python3 infer-det-without-torch.py \
---engine yolov8s.engine \
---imgs data \
---show \
---out-dir outputs \
---method cudart
-```
-
-#### Description of all arguments
-
-- `--engine` : The Engine you export.
-- `--imgs` : The images path you want to detect.
-- `--show` : Whether to show detection results.
-- `--out-dir` : Where to save detection results images. It will not work when use `--show` flag.
-- `--method` : Choose `cudart` or `pycuda`, default is `cudart`.
