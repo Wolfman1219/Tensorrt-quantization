@@ -91,8 +91,6 @@ You can modify `iou-thres` `conf-thres` `topk` by yourself.
 
 # Inference
 
-## 1. Infer with python script
-
 You can infer images with the engine by [`infer-det.py`](infer-det.py) .
 
 Usage:
@@ -114,32 +112,3 @@ python3 infer-det.py \
 - `--out-dir` : Where to save detection results images. It will not work when use `--show` flag.
 - `--device` : The CUDA deivce you use.
 - `--profile` : Profile the TensorRT engine.
-
-## 2. Infer with C++
-
-You can infer with c++ in [`csrc/detect/end2end`](csrc/detect/end2end) .
-
-### Build:
-
-Please set you own librarys in [`CMakeLists.txt`](csrc/detect/end2end/CMakeLists.txt) and modify `CLASS_NAMES` and `COLORS` in [`main.cpp`](csrc/detect/end2end/main.cpp).
-
-``` shell
-export root=${PWD}
-cd csrc/detect/end2end
-mkdir -p build && cd build
-cmake ..
-make
-mv yolov8 ${root}
-cd ${root}
-```
-
-Usage:
-
-``` shell
-# infer image
-./yolov8 yolov8s.engine data/bus.jpg
-# infer images
-./yolov8 yolov8s.engine data
-# infer video
-./yolov8 yolov8s.engine data/test.mp4 # the video path
-```
